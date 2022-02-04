@@ -25,13 +25,15 @@ const Home = (): JSX.Element => {
   const [products, setProducts] = useState<ProductFormatted[]>([]);
   const { addProduct, cart } = useCart();
 
-  const cartItemsAmount = cart.reduce((sumAmount, product) => {
-    if(!sumAmount[product.id])
-      sumAmount[product.id] = 0;
-    else
-      sumAmount[product.id] += 1;
-    return sumAmount;
-  }, {} as CartItemsAmount)
+  const [cartItemsAmount, setCartItemsAmount] = useState(
+    cart.reduce((sumAmount, product) => {
+      if(!sumAmount[product.id])
+        sumAmount[product.id] = 0;
+      else
+        sumAmount[product.id] += 1;
+      return sumAmount;
+    }, {} as CartItemsAmount)
+  );
 
   useEffect(() => {
     async function loadProducts() {
@@ -43,8 +45,12 @@ const Home = (): JSX.Element => {
 
   function handleAddProduct(id: number) {
     addProduct(id);
-    cartItemsAmount[id] = cartItemsAmount[id] ? cartItemsAmount[id] += 1 : cartItemsAmount[id] = 1;
-    console.log(cartItemsAmount);
+    const aux = cartItemsAmount;
+    aux[id] = aux[id] ? aux[id] += 1 : aux[id] = 1;
+    setCartItemsAmount(aux);
+    // console.log(cartItemsAmount);
+    console.log(aux);
+    console.log("Cart Item " + cartItemsAmount[id]);
   }
 
   return (
