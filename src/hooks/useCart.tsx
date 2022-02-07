@@ -69,7 +69,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
       
     } catch {
-      toast.error('Erro ao adicionar ao carrinho')
+      toast.error('Erro na adição do produto')
     }
   };
 
@@ -118,7 +118,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         throw Error();
       }
     } catch {
-      toast.error('Erro ao alterar a quantidade do produto');
+      toast.error('Erro na alteração de quantidade do produto');
     }
   };
 
